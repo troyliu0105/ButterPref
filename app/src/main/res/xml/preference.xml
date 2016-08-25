@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="use String">
+
+        <EditTextPreference
+            android:key="test1"
+            android:title="Test1"/>
+        <CheckBoxPreference
+            android:key="test2"
+            android:title="Test2"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="use StringRes">
+
+        <EditTextPreference
+            android:key="@string/test3"
+            android:title="Test3"/>
+
+        <CheckBoxPreference
+            android:key="@string/test4"
+            android:title="Test4"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
