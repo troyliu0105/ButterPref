@@ -16,7 +16,6 @@ public class ButterPrefs {
     public static void bind(Object obj) {
         Field[] fields = obj.getClass().getDeclaredFields();
         Method findPreference;
-        Context context;
         try {
             findPreference = obj.getClass().getMethod("findPreference", CharSequence.class);
             findPreference.setAccessible(true);
@@ -49,10 +48,15 @@ public class ButterPrefs {
                 throw new IllegalArgumentException("must have a String key or StringRes key!");
             }
             try {
-                //noinspection ConfusingArgumentToVarargsMethod
-                Method getActicity = obj.getClass().getMethod("getActivity");
-                getActicity.setAccessible(true);
-                Object o = getActicity.invoke(obj);
+                Object o = null;
+                if (Util.isFragment(obj)) {
+                    //noinspection ConfusingArgumentToVarargsMethod
+                    Method getActicity = obj.getClass().getMethod("getActivity");
+                    getActicity.setAccessible(true);
+                    o = getActicity.invoke(obj);
+                } else {
+                    o = obj;
+                }
                 if (o instanceof Context) {
                     context = (Context) o;
                     keyStr = context.getString(keyRes);
